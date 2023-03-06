@@ -88,7 +88,9 @@ export class CustomersPage extends AbstractPageObject {
     getSearchTermText = async () => {
         await this.page.waitForSelector(this.searchTerm)
         let element = await this.page.$(this.searchTerm)
-        return await this.page.evaluate(el => el.textContent, element)
+        return (await this.page.evaluate(el => el.textContent, element))
+            .replace(/(\s+)/gm, " ")
+            .trim()
     };
 
     getSearchInputText = async () => {
